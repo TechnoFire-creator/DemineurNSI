@@ -183,15 +183,40 @@ def test_drapeau(coords:tuple,grille:dict,isFind:bool):
     else:
         return False
 
+def LigneMontrer(taille,grille:dict,y): # Ligne x
+    """
+     Fonction Principale :
+        fonction qui MODIFIE une ligne en la rendant visibile (Modifier l'attribut des cases != afficher la grille) selon la position de la case evenement (je rapelle que c'est un événement pas une fonction pour afficher; juste modifier le dico selon les coordonnées.)
+
+    :param grille: taille,grille:dict,x,y
+    :return: grille
+    """
+    for x in range(1,len(taille)+1): # parcours la ligne
+                grille[(x,y)]["estVisible"] = True  # modifie le paramètre pour que le statue de la case soit visible
+    return grille # renvoye la grille
+
+def ColonneMontrer(taille,grille:dict,x): # Colonne y
+    """
+     Fonction Principale :
+        fonction qui MODIFIE une colonne en la rendant visibile 
+
+    :param grille: taille,grille:dict,x,y
+    :return: grille
+    """
+    for y in range(1,len(taille)+1): # parcours la ligne
+                grille[(x,y)]["estVisible"] = True  # modifie le paramètre pour que le statue de la case soit visible
+    return grille # renvoye la grille
+
+
 def manage_assert(grille):
     assert test_statutCaseDepart(grille=grille) == True
     drapeau((9,9),grille=grille, isFind=True)
     assert  test_drapeau((9,9),grille=grille, isFind=True)
 
 grille = grille(taille=9)
-print(grille)
 grille = statutCaseDepart(grille=grille)
-print(grille)
 manage_assert(grille=grille)
-print(grille)
+
+for key,value in grille.items():
+    print(f"Coords : {key} ; Valeur : {value}")
 
