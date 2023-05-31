@@ -45,7 +45,7 @@ def statutCaseDepart(grille:dict):
         - Probabilité speciale : 10%
         - Probabilité normale 50 % (le reste)
 
-    Parametersprint(grille)
+    Parameters
     -------
     nouvelle grille avec le type modifier.
 
