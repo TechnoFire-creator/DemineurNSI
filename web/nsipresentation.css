@@ -1,0 +1,135 @@
+h1 {
+    color: #384370;
+    text-align: center;
+    margin-top: 7%;
+}
+
+body {
+    background-image: url("../Image/koy14.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+p {
+    color: #5A5E70;
+}
+
+h2 {
+    color: #384370;
+}
+
+ul {
+    color: #5A5E70;
+    text-align: left;
+    margin-left: 10%;
+}
+
+strong {
+    color: #384370;
+}
+
+main, header, footer{
+    background-color: #E2EEEA;
+    width: 70%;
+    border-radius: 10px;
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+	opacity: 80%;
+    margin-bottom: 20px;
+}
+section {
+    background-color: #E2EEEA;
+    width: 70%;
+    border-radius: 10px;
+    margin: auto;
+    padding: 10px;
+	opacity: 90%;
+    margin-bottom: 20px;
+}
+h2 {
+	text-align: center;
+}
+table
+{
+    margin: auto;
+    border: black solid 1px;
+    text-align: center;
+}
+td,th{
+    margin: auto;
+    border: black solid 1px;
+}
+a {
+    text-decoration: none;
+}
+.link_algo
+{
+    padding-left: 40px;
+    
+}
+.definition-word
+{
+    color: red;
+}
+.copyright
+{
+    width: 3%;
+    padding-right: 10px;
+}
+footer
+{
+    display: flex;
+    justify-content: center;
+
+}
+
+span.mot_res {
+	color: blue;
+}
+
+span.nombre {
+	color: green;
+}
+
+pre {
+    margin: auto;
+    width: 50%;
+}
+
+.nav {
+    display: inline flex;
+}
+.img_nav {
+    width: 80%;
+    height:80%;
+}
+div.nav {
+    height: 25%;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+
+}
+
+.explication
+{
+    text-align: center;
+}
+
+#autor {
+    display: flex;
+    flex-direction: column;
+}
+#autor div {
+    flex-direction: row;
+    display: inline flex;
+    justify-content: center;
+}
+
+#autor div p{
+    padding-left: 10px;
+
+}

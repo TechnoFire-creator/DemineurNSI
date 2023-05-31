@@ -1,0 +1,35 @@
+body {
+    background-image: url("../Image/koy14.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+section, header, footer{
+    background-color: #E2EEEA;
+    width: 95%;
+    border-radius: 10px;
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+	opacity: 80%;
+    margin-bottom: 20px;
+}
+table
+{
+    margin: auto;
+    border: black solid 1px;
+    text-align: center;
+}
+td,th{
+    margin: auto;
+    border: black solid 1px;
+}
+span
+{
+    color: red;
+}
+div.eleve{
+    display: block;
+
+}

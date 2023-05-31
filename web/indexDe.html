@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/nsipresentation.css", rel="stylesheet">
+    <title>Projet : Demineur</title>
+</head>
+<body>
+    <header>
+        <h1>
+            Demineur : interface console
+        </h1>
+        <p>
+            <span>Description : </span> Le Démineur se présente sous forme de grille généralement composée de 18 cellules (9×9).<br></br>
+Certaines cases cachent une bombe (il y en a souvent 10 dans une grille de cette taille). <br></br>
+Le but du jeu est de dévoiler toutes les cellules libres sans faire exploser une seule bombe.
+        </p>
+        <p>
+            <span>Idée : </span> Une case avec un point d’interrogation qui, lorsqu’on clique dessus va engendrer une action positive ou négatif envers le joueur:
+
+        </p>
+        <table>
+            <tr>
+                <th>Action</th>
+                <th>Pourcentage</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td>Ajoute plus de mine</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td></td>
+                <td>Camoufle une zone découverte</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td></td>
+                <td>Change la position des mines (ce qui change aussi les chiffres)</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td></td>
+                <td>Découvre une colonne ou une ligne</td>
+            </tr>
+
+        </table>
+    </header>
+    <section>
+        <h2>
+            Cahier des charges
+        </h2>
+        <ul>
+            <li><h4>Fonction Grille :</h4> Fonction qui crée un dico de coords de la grille .</li>
+            <li><h4>Fonction statutCaseDepart :</h4> fonction qui pose aléatoirement des mines et les casesSpéciales dans le dico en changeant leur status  et dont le nombre de mine est proportionnelle à la taille de la grille.</li>
+			<li><h4>Fonction récupererCaseStatut :</h4> Fonction qui récuperer le  type de la case.</li>
+            <li><h4>Fonction Drapeau :</h4> Fonction qui place un drapeau sous demande du joueur. Donc on modifie le status d'une case avec le drapeau</li>
+            <li><h4>Fonction Afficher:</h4> Fonction qui affiche avec le numero des colonnes et les lettres des lignes.</li>
+            <li><h4>Fonction MineAdjacente :</h4> Fonction qui indique le nombre de mine adjacente</li>
+            <li><h4>Fonction DécouvrirZone :</h4> Fonction découvre la case sélectionnée</li>
+            <li><h4>Fonction CompteNombreMine :</h4> fonction qui montre le compte de mine présent sur la grille, le dico</li>
+			<li><h4>Fonction saisie :</h4> fonction qui récpére les données de l'utilisateur et la vérifie</li>
+			<li><h4>Fonction main :</h4> fonction qui utilise les autres fonction</li>
+			<li><h4>Fonction regle :</h4> fonction qui verifie le status de la partis Ex: gagné ou perdu</li>
+			<li><h4>Fonction ActionAléatoire :</h4> fonction qui donne aléatoirement une fonction event</li>
+			<li><h4>Fonction AjouterMine :</h4> fonction qui rajoute des mines dans le dico en plus de celle de départs</li>
+			<li><h4>Fonction CacherZone :</h4> fonction qui cache aléatoire les casses découvertes</li>
+			<li><h4>Fonction ChangerMine :</h4> fonction qui change l'emplacement des mines existants dans le dico et donc de recalculer tous les cases adjacente</li>
+			<li><h4>Fonction MontrerColonne :</h4> fonction qui Montre un colonne alétoire</li>
+			<li><h4>Fonction MontrerLigne :</h4> fonction qui montre une ligne</li>
+			
+        </ul>
+    </section>
+    <section>
+        <h2>Fonctionnement du programme : fonction simple + documentation</h2>
+        <p>
+            Le but du démineur est de déminer un champ de mines sans déclencher une seule mine. Le champ de mines est une grille carrée avec des cases cachées. Chaque case peut contenir soit une mine, soit un nombre qui indique le nombre de mines adjacentes.
+        </p>
+        <article>
+            <h3>
+                Organisation
+            </h3>
+            <div class="eleve">
+                <h4>Elève 1 : Hoang Thomas</h4>
+                <ul>
+						<li>Grille</li>
+						<li>statutCaseDepart</li>
+						<li>Drapeau</li>
+						<li>Afficher</li>
+						<li>MineAdjacente</li>
+						<li>DecouvirZone</li>
+
+						
+					</ul>
+            </div>
+            <div class="eleve">
+                <h4>Elève 2 : GJ</h4>
+                <p>
+                    Il s'occupe de faire la logique du jeu avec des rélges, ou les opérations de bases: <br>
+					<ul>
+						<li>main</li>
+						<li>regle</li>
+						<li>récupererCaseStatut</li>
+						<li>saisie</li>
+						<li>ActionAléatoire</li>
+						<li>MineAdjacente</li>
+						<li>AjouterMine</li>
+						<li>CacherZone</li>
+						<li>MonterColonne</li>
+						<li>MontrerLigne</li>
+						<li>ChangerMine</li>
+						
+						
+					</ul>
+                </p>
+            </div>
+        </article>
+    </section>
+</body>
+</html>
