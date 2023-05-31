@@ -209,6 +209,10 @@ def ColonneMontrer(taille,grille:dict,x): # Colonne y
 
 
 def manage_assert(grille):
+    """
+    FP : Regroupe les fonction test avec des assert
+    But: Permet d'activer ou désactiver les asserts sans tout changer
+    """
     assert test_statutCaseDepart(grille=grille) == True
     drapeau((9,9),grille=grille, isFind=True)
     assert  test_drapeau((9,9),grille=grille, isFind=True)
