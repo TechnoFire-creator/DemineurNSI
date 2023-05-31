@@ -8,23 +8,22 @@ def main(taille=9):
     colonne = [val for val in range(65, 65 + taille)]
     
     # Initialiser la grille
-    demineur = grille(taille)
-    demineur = statutCaseDepart(grille,taille)
-    nbr_mine = compteNombreMine(grille)
+    grille = grille(taille)
+    grille = statutCaseDepart(grille,taille)
+    nbr_case_normale = compteNombreMine(grille)
     case_statut = ""
     jeu_statut = True
     
     while jeu_statut:
         # Affiche à chaque fois la grille
         afficher(grille)
-        print(f"Bombes: {nbr_mine}")
         
         # Demande les coords
         saisieUser = saisie((colonne,ligne))
         # Analyse les coords
         case_statut = recupererCaseStatut(saisieUser)
         # On définit l'etat de victoire ou pas
-        jeu_statut = regle(case_statut, demineur)
+        jeu_statut = regle(case_statut, grille)
     
     print("Fin du jeu, merci de votre participation !!!")
         
@@ -112,14 +111,14 @@ def statutCaseDepart(grille:dict):
     return grille
 
 
-def recupererCaseStatut(coords:tuple):
+def recupererCaseStatut(coords:tuple,grille:dict):
     """
     Fonction qui renvoye le type de la case en char:
-        - Case Normale : N
-        - Case Spéciale : S
-        - Case Mine : M
+        - Case Normale : normale
+        - Case Spéciale : speciale
+        - Case Mine : mine
     """
-    pass
+    return grille[coords]["estVisible"]
 
 def drapeau(coords:tuple,grille:dict,isFind:bool):
     """
@@ -149,8 +148,8 @@ def afficher():
 def mineAdjacente():
     pass
 
-def decouvrirZone(mode=chr):
-    pass
+def decouvrirZone(boolean:bool,grille:dict,coords:tuple):
+    grille[coords]["estVisible"] = boolean
 
 def compteNombreMine(grille,dict):
     pass
@@ -163,15 +162,15 @@ def regle(case_statut:str,grille:dict):
     Fonction qui selon le type de la case va exécuter les fonctions attribuée aux regles et va renvoyer un etat boolean
     """
     
-    if case_statut == 'N':
+    if case_statut == 'normale':
         decouvrirZone(mode=case_statut)
         return True
-    elif case_statut == 'S':
+    elif case_statut == 'speciale':
         print("Evenement aléatoire !!!")
         decouvrirZone(mode=case_statut)
         actionAleatoire()
         return True
-    elif case_statut == 'M':
+    elif case_statut == 'mine':
         print("BOOM")
         return False
         
