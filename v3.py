@@ -13,7 +13,7 @@ def grille(taille:int):
     Fonction Principale :
         Créer un dictionnaire de cette forme
             { (x,y) : {"type" : "mine/speciale/normale", "drapeau" : True/False, "estVisible" : True/False}, etc...}
-
+ 
     Parameters
     ----------
     taille : int
@@ -216,6 +216,30 @@ def manage_assert(grille):
     assert test_statutCaseDepart(grille=grille) == True
     drapeau((9,9),grille=grille, isFind=True)
     assert  test_drapeau((9,9),grille=grille, isFind=True)
+
+def LigneMontrer(taille,grille:dict,x,y):
+    """
+     Fonction Principale :
+        fonction qui MODIFIE une ligne en la rendant visibile 
+
+    :param grille: taille,grille:dict,x,y
+    :return: grille
+    """
+    for x in range(1,len(taille)+1): # parcours la ligne
+                grille[(x,y)]["estVisible"] = True  # modifie le paramètre pour que le statue de la case soit visible
+    return grille # renvoye la grille
+
+def LigneColonne(taille,grille:dict,x,y):
+    """
+     Fonction Principale :
+        fonction qui MODIFIE une colonne en la rendant visibile 
+
+    :param grille: taille,grille:dict,x,y
+    :return: grille
+    """
+    for y in range(1,len(taille)+1): # parcours la ligne
+                grille[(x,y)]["estVisible"] = True  # modifie le paramètre pour que le statue de la case soit visible
+    return grille # renvoye la grille
 
 grille = grille(taille=9)
 grille = statutCaseDepart(grille=grille)
