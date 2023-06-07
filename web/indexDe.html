@@ -60,23 +60,23 @@ Le but du jeu est de dévoiler toutes les cellules libres sans faire exploser un
             Cahier des charges
         </h2>
         <ul>
-		<li><h4>Fonction Grille :</h4> Fonction qui crée un dico de coords de la grille .</li>
-            	<li><h4>Fonction statutCaseDepart :</h4> fonction qui pose aléatoirement des mines et les casesSpéciales dans le dico en changeant leur status  et dont le nombre de mine est proportionnelle à la taille de la grille.</li>
-		<li><h4>Fonction récupererCaseStatut :</h4> Fonction qui récuperer le  type de la case.</li>
-		<li><h4>Fonction Drapeau :</h4> Fonction qui place un drapeau sous demande du joueur. Donc on modifie le status d'une case avec le drapeau</li>
-		<li><h4>Fonction Afficher:</h4> Fonction qui affiche avec le numero des colonnes et les lettres des lignes.</li>
-		<li><h4>Fonction MineAdjacente :</h4> Fonction qui indique le nombre de mine adjacente</li>
-		<li><h4>Fonction DécouvrirZone :</h4> Fonction découvre la case sélectionnée</li>
-		<li><h4>Fonction saisie :</h4> fonction qui récpére les données de l'utilisateur et la vérifie</li>
-		<li><h4>Fonction regle :</h4> fonction qui verifie le status de la partis Ex: gagné ou perdu</li>
-		<li><h4>Fonction ActionAléatoire :</h4> fonction qui donne aléatoirement une fonction event</li>
-		<li><h4>Fonction montrerDiagonal :</h4> fonction qui montre les cases des diagonales</li>
-		<li><h4>Fonction CacherZone :</h4> fonction qui cache aléatoire les casses découvertes</li>
-		<li><h4>Fonction fatality :</h4> fonction qui supprime l'avancée du joueur (retours à la case de départs si on peut le dire)</li>
-		<li><h4>Fonction MontrerColonne :</h4> fonction qui Montre un colonne alétoire</li>
-		<li><h4>Fonction MontrerLigne :</h4> fonction qui montre une ligne</li>
-		<li><h4>Fonction Manage_assert :</h4> fonction permet de tester l'intégralité du code</li>
-		<li><h4>Fonction main :</h4> fonction qui utilise les autres fonction</li>
+            <li><h4>Fonction Grille :</h4> Fonction qui crée un dico de coords de la grille .</li>
+            <li><h4>Fonction statutCaseDepart :</h4> fonction qui pose aléatoirement des mines et les casesSpéciales dans le dico en changeant leur status  et dont le nombre de mine est proportionnelle à la taille de la grille.</li>
+			<li><h4>Fonction récupererCaseStatut :</h4> Fonction qui récuperer le  type de la case.</li>
+            <li><h4>Fonction Drapeau :</h4> Fonction qui place un drapeau sous demande du joueur. Donc on modifie le status d'une case avec le drapeau</li>
+            <li><h4>Fonction Afficher:</h4> Fonction qui affiche avec le numero des colonnes et les lettres des lignes.</li>
+            <li><h4>Fonction MineAdjacente :</h4> Fonction qui indique le nombre de mine adjacente</li>
+            <li><h4>Fonction DécouvrirZone :</h4> Fonction découvre la case sélectionnée</li>
+			<li><h4>Fonction saisie :</h4> fonction qui récpére les données de l'utilisateur et la vérifie</li>
+			<li><h4>Fonction regle :</h4> fonction qui verifie le status de la partis Ex: gagné ou perdu</li>
+			<li><h4>Fonction ActionAléatoire :</h4> fonction qui donne aléatoirement une fonction event</li>
+			<li><h4>Fonction montrerDiagonal :</h4> fonction qui montre les cases des diagonales</li>
+			<li><h4>Fonction CacherZone :</h4> fonction qui cache aléatoire les casses découvertes</li>
+			<li><h4>Fonction fatality :</h4> fonction qui supprime l'avancée du joueur (retours à la case de départs si on peut le dire)</li>
+			<li><h4>Fonction MontrerColonne :</h4> fonction qui Montre un colonne alétoire</li>
+			<li><h4>Fonction MontrerLigne :</h4> fonction qui montre une ligne</li>
+            <li><h4>Fonction Manage_assert :</h4> fonction permet de tester l'intégralité du code</li>
+            <li><h4>Fonction main :</h4> fonction qui utilise les autres fonction</li>
 			
         </ul>
     </section>
@@ -99,29 +99,74 @@ Le but du jeu est de dévoiler toutes les cellules libres sans faire exploser un
                         <li>MonterColonne</li>
 						<li>MontrerLigne</li>
                         <li>récupererCaseStatut</li>
+                        <li>MineAdjacente</li>
                     </ul>
             </div>
             <div class="eleve">
                 <h4>Elève 2 : GOMBERT-Julien</h4>
                 <p>
                     S'occupe de faire la logique, de superviser et d'aider dans les autres taches et de tester<br>
-			<ul>
-				<li>main</li>
-				<li>regle</li>
-				<li>ActionAléatoire</li>
-				<li>MineAdjacente</li>
-				<li>MontrerDiagonal</li>
-				<li>CacherZone</li>
-				<li>statutCaseDepart</li>   
-				<li>Afficher</li>
-				<li>MineAdjacente</li>
-				<li>DecouvirZone</li>
-
-
-			</ul>
+					<ul>
+						<li>main</li>
+						<li>regle</li>
+						<li>ActionAléatoire</li>
+						<li>MineAdjacente</li>
+						<li>MontrerDiagonal</li>
+						<li>CacherZone</li>
+                        <li>statutCaseDepart</li>   
+						<li>Afficher</li>
+						<li>DecouvirZone</li>
+						
+						
+					</ul>
                 </p>
             </div>
         </article>
+    </section>
+
+    <section>
+        <h1>Rapport : Hoang Thomas</h1>
+        <p> <strong>Difficultés</strong> : En soit non quand tu prends le coup de main mais au début c'était galere
+            et aussi vu que c'est genre plus de l'affichage si je peut dire comme ça , je trouve que ça va c'était moyen quoi
+            après vu que j'ai fait les fonction les plus facile j pense que j'aurai jamais pu tout faire moi même d'ou l'utilité d'être en binome
+        </p>
+        <p>
+            <strong>Bugs/problèmes</strong> : En soit j'en ai juste eu pour la fonction MineAdjacente pour les limite de la grille lorsque qu'elle verif mais y'a aussi les dico qui m'ont bien casser les pieds mais en soit ça c'est juste moi qui doit m'entrainer
+        </p>
+        <p>
+            <strong>L'inspiration </strong> : Pour l'idée de notre touche personnelle, vu que on avait juste des cases avec lequel on pouvait interagir, y'avait pas dix mille chemin quoi
+            Et jtrouve aussi que c'est bien d'avoir un event qui peut interagir avec le joueur, un truc automatique qui fait qlqchose tout les x secondes c'est pas ouf je trouve  parceque je trouve ça vite ennuyant, y'a aussi un avantage pour le joueur en raison qu'il peut s'absenter pendant le jeu.
+            et aussi au lieu d'avoir un compteur et dont on connait directement notre touche perso .Là on ne sait rien au début, on sait qu'il y a un truc qui a changer mais on le découvre au fur à mesure du jeu et Vu que notre cases event il possède plusieurs evenements different, sa incite le joueur à recommencer à jouer
+            Vu que notre grille fait du 8x8 (elle est customisable allant de 1 à 8),C'est impossible d'avoir vu toute les events.
+        </p>
+    </section>
+    <section>
+        <h1>Rapport : GOMBERT-Julien</h1>
+        <p>
+            <strong>Difficultés</strong> : Au contraire de thomas j'avais plutôt de la difficultés à faire FACILE / SIMPLE, ce qui était nécessaire pour qu'il comprenne. Donc j'ai du réfléchir et réfléchir.
+            En conséquences j'ai du revoir le moyens de stocker les données avec un dictionnaire de dictionnaire. 
+        </p>
+        <p>
+            <strong id="important">Remarque</strong> : Si je pouvais je reprendrais tout le projet en analysant mieux les fonctions et la logique.
+        </p>
+        <p>
+            <strong>Bugs/problèmes</strong> : M'occupant de la logique, j'ai eu une tonne de problème avec les propabilitées, car python fournie des nombres pseudo-aléatoires
+            car logiquement un ordinateurs ne peut être aléatoires puisque qu'il est logique (il utilise des algorithmes pour en créer).        
+        </p>
+        <p>
+            <strong>L'inspiration</strong> : Idem, on a voulu faire orignale pour un projet classique.
+        </p>
+
+    </section>
+    <section>
+        <h1>Liens utiliser : </h1>
+        <ul>
+            <li>google.com</li>
+            <li>python.org / documentation</li>
+            <li>wikipedia.org / Se documenter sur le projet</li>
+            <li>github.com  / Partager les fichiers à "distance"</li>
+            <li>Discord.com / Comunnications </li>
+        </ul>
     </section>
 </body>
 </html>
