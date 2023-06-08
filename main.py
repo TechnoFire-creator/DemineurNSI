@@ -36,9 +36,9 @@ def statutCaseDepart(grille:dict):
         Modifier l'attribut type avec des valeurs telle que mine/speciale/normale
         Avec des nombres de mine,speciales,normale proportionnelle à la taille.
         
-        - Probabilité mine : 40 %
-        - Probabilité speciale : 10%
-        - Probabilité normale 50 % (le reste)
+        - Probabilité mine : 40%
+        - Probabilité speciale : 5%
+        - Probabilité normale 50% (le reste)
 
         Puis mettre les MineAdjacentes
     Parameters
@@ -49,8 +49,8 @@ def statutCaseDepart(grille:dict):
     random.seed() # Générer des nombres de façons aléatoire à CHAQUE fois, pour avoir une structure de donnée unique à chaque fois.
     taille = len(grille)
     # Pour le 0.1, aller voir l'explication fonction test_statutCaseDepart
-    nbr_mine = round(0.40 * taille + 0.1)
-    nbr_speciale = round(0.10 * taille + 0.1)
+    nbr_mine = round(0.45 * taille + 0.1)
+    nbr_speciale = round(0.05 * taille + 0.1)
     nbr_normale = round(0.50 * taille + 0.1)
     liste_Choix = ["mine","normale","speciale"]
 
@@ -134,7 +134,7 @@ def afficher(grille:dict,taille):
                 if case["estVisible"]:
                     print(case["nbr_mine"], end="")
                 else:
-                    print("#", end="")
+                    print(" ", end="")
             else:
                 print("?",end="")
             
@@ -165,73 +165,37 @@ def decouvrirZone(boolean:bool,grille:dict,coords:tuple):
     grille[coords]["estVisible"] = boolean
 
 
-def saisie(grille:dict,taille:int,drapeauMode:bool):
+def saisie(taille:int):
     """
     FP : fonction qui récpére les données de l'utilisateur et la vérifie
     
     parametre;
-        -grille : dict
+        -taille : int
 
     Returns
     -------
     tuple(x,y)
 
     """
-    if drapeauMode:
-        
-        isCheck = True
-        while isCheck:
-            drapeau = input("Voulez-vous poser un drapeau ? (o/n) ")
-            if drapeau == "o":
-                x = input("Coordonnées x : ")
-                y = input("Coordonnées y : ")
-                
-                
-                isCheck = True
-                
-                while isCheck:
-                    
-                    if len(x) == 1 and 48 <=  ord(x) <= ord(str(taille)):
-                        if len(y) == 1 and 48 <= ord(y) <= ord(str(taille)):
-                            isCheck = False
-                        else:
-                            print("Erreur, la coordonnées y n'est pas valide")
-                            y = input("Coordonnées y : ")
-                    else:
-                        print("Erreur, la coordonnées x n'est pas valide ")
-                        x = input("Coordonnées x : ")
-
-
-
-            
-                return (int(y),int(x))
-            elif drapeau == "n":
-                return -1
-            
-    else:
-        print("Veuillez entrer des coordonnées de la case à découvrir ! ")
-        x = input("Coordonnées x : ")
-        y = input("Coordonnées y : ")
-        
-        
-        isCheck = True
-        
-        while isCheck:
-            
-            if len(x) == 1 and 48 <=  ord(x) <= ord(str(taille)):
-                if len(y) == 1 and 48 <= ord(y) <= ord(str(taille)):
-                    isCheck = False
-                else:
-                    print("Erreur, la coordonnées y n'est pas valide")
-                    y = input("Coordonnées y : ")
-            else:
-                print("Erreur, la coordonnées x n'est pas valide ")
-                x = input("Coordonnées x : ")
-
-
-
     
-    return (int(y),int(x))
+    drapeau = -1
+    case = ()
+    
+    isCheck = True
+    while isCheck:
+        commands = input("demineur :  ")
+        if commands[0]=="c" and len(commands) == 3:
+            if 48 <=  ord(commands[1]) <= ord(str(taille))and 48 <=  ord(commands[2]) <= ord(str(taille)):
+                case = (int(commands[2]),int(commands[1]))
+        elif commands[0]=="d" and len(commands) == 3:
+            if 48 <=  ord(commands[1]) <= ord(str(taille))and 48 <=  ord(commands[2]) <= ord(str(taille)):
+                drapeau = (int(commands[2]),int(commands[1]))
+        elif commands[0]=="e" and len(commands) == 1:
+            isCheck = False
+        else:
+            print("Erreur de syntaxe \nExemple : \nc11 pour creuser une case en x=1 et y=1 \nd11 pour poser un drapeau en x=1 et y=1\ne : exit")
+        
+    return {"case":case,"drapeau":drapeau}
 
 def regle(case_statut:tuple,grille:dict, case_decouverte:int,coords:tuple,drapeauSaisie,taille:int):
     """
@@ -240,35 +204,41 @@ def regle(case_statut:tuple,grille:dict, case_decouverte:int,coords:tuple,drapea
     
     if drapeauSaisie != -1:
         drapeau(drapeauSaisie, grille, True)
-        if case_statut[1] == True:
-            print("Erreur, déjà visible")
-        elif case_statut[0] == 'normale':
-            casseAllie(grille, taille, coords)
-            return (True, case_decouverte+1)
-        elif case_statut[0] == 'speciale':
-            print("Evenement aléatoire !!!")
-            casseAllie(grille, taille, coords)
-            actionAleatoire(coords,taille,grille)
-            return (True, case_decouverte+1)
-        elif case_statut[0] == 'mine':
-            print("BOOM")
-            return (False,case_decouverte)
+        if len(case_statut) != 0:
+            if case_statut[1] == True and case_statut[0] != "mine":
+                print("Erreur, déjà visible")
+                return(True, case_decouverte)
+            elif case_statut[0] == 'normale':
+                casseAllie(grille, taille, coords)
+                return (True, case_decouverte+1)
+            elif case_statut[0] == 'speciale':
+                print("Evenement aléatoire !!!")
+                casseAllie(grille, taille, coords)
+                actionAleatoire(coords,taille,grille)
+                return (True, case_decouverte+1)
+            elif case_statut[0] == 'mine':
+                print("BOOM")
+                return (False,case_decouverte)
+        else:
+            return (True, case_decouverte)
     else:
-        if case_statut[1] == True:
-            print("Erreur, déjà visible")
-        
-        if case_statut[0] == 'normale':
-            casseAllie(grille, taille, coords)
-            return (True, case_decouverte+1)
-        elif case_statut[0] == 'speciale':
-            print("Evenement aléatoire !!!")
-            casseAllie(grille, taille, coords)
-            actionAleatoire(coords,taille,grille)
-            return (True, case_decouverte+1)
-        elif case_statut[0] == 'mine':
-            print("----[BOOM]----")
-            return (False,case_decouverte)
-        
+        if len(case_statut) != 0:
+            if case_statut[1] == True and case_statut[0] != "mine":
+                print("Erreur, déjà visible")
+                return(True, case_decouverte)
+            if case_statut[0] == 'normale':
+                casseAllie(grille, taille, coords)
+                return (True, case_decouverte+1)
+            elif case_statut[0] == 'speciale':
+                print("Evenement aléatoire !!!")
+                casseAllie(grille, taille, coords)
+                actionAleatoire(coords,taille,grille)
+                return (True, case_decouverte+1)
+            elif case_statut[0] == 'mine':
+                print("----[BOOM]----")
+                return (False,case_decouverte,grille)
+        else:
+            return (True, case_decouverte)
 
 def actionAleatoire(coords:tuple,taille:int,grille:dict):
     """
@@ -289,14 +259,19 @@ def actionAleatoire(coords:tuple,taille:int,grille:dict):
     nombreAle = random.randint(1,5)
     if nombreAle == 1:
         fatality(grille,taille)
+        print("Retours à la case departs !")
     if nombreAle == 2:
         cacherZone(coords,grille)
+        print("Zone cachée !")
     if nombreAle == 3:
-        montrerLigne(taille,grille,y)
+        montrerColonne(taille,grille,y)
+        print("Colonne découverte !")
     if nombreAle == 4:
-        montrerColonne(taille,grille,x)
+        montrerLigne(taille,grille,x)
+        print("Ligne Découverte")
     if nombreAle == 5:
         montrerDiagonal(taille,grille)
+        print("Diagonal Découverte")
     
         
         
@@ -353,7 +328,7 @@ def fatality(demineur:dict,taille:int):
     demineur = statutCaseDepart(demineur)  #redéfinit le statut des cases
     demineur = mineAdjacenteDepart(demineur,taille)   #appelle la fonction pour mettre à jour les cases adjacente 
 
-def montrerLigne(taille,grille:dict,y): # Ligne x
+def montrerColonne(taille,grille:dict,y): # Ligne x
     """
      Fonction Principale :
         fonction qui MODIFIE une ligne en la rendant visibile (Modifier l'attribut des cases != afficher la grille) selon la position de la case evenement (je rapelle que c'est un événement pas une fonction pour afficher; juste modifier le dico selon les coordonnées.)
@@ -364,7 +339,7 @@ def montrerLigne(taille,grille:dict,y): # Ligne x
     for x in range(1,taille+1): # parcours la ligne
         grille[(x,y)]["estVisible"] = True  # modifie le paramètre pour que le statue de la case soit visible
 
-def montrerColonne(taille,grille:dict,x): # Colonne y
+def montrerLigne(taille,grille:dict,x): # Colonne y
     """
      Fonction Principale :
         fonction qui MODIFIE une colonne en la rendant visibile 
@@ -516,31 +491,56 @@ def main(taille=5):
     """
     Fonction principale du programme avec la logique d'exécution'
     """
-    print("Information le x --> abscisse et le y --> ordonnée. De plus lors de certaines événement le symbole M peut apparaitre, il signifie Mine")
+    print("Regles : ")
+    print("x --> abscisse \ny --> ordonnée \nSymbole M --> mine")
     print("")
+    print("----[Debut]----\n")
 
     # Initialiser la grille
+    isCheck = True
+    while isCheck:
+        reponse = input("Selectionner Mode (facile, moyen, difficile) : ")
+        if reponse == "facile":
+            taille = 4
+            isCheck = False
+        elif reponse == "moyen":
+            taille = 6
+            isCheck = False
+        elif reponse == "difficile":
+            taille = 9
+            isCheck = False
+        else:
+            print("Erreur syntaxe")
     demineur = grille(taille)
     demineur = statutCaseDepart(demineur)
     # Générer les nbrs
     demineur = mineAdjacenteDepart(grille=demineur,taille=taille)
+    # Aider le joueur au debut
+    x,y = (random.randint(1, taille),random.randint(1, taille))
+    liste_case_within = [(x,y),(x+1,y),(x-1,y),(x,y+1),(x,y-1)]
+    for coord in liste_case_within:
+        if demineur.get(coord, "-1") != "-1":
+            demineur[coord]["estVisible"] = True
+    
     
     case_decouverte = 0
     case_statut = ""
     jeu_statut = True
-    
+    print("Comment interagir ??? \nExemple : \nc11 pour creuser une case en x=1 et y=1 \nd11 pour poser un drapeau en x=1 et y=1\ne : exit")
+    print("")
     while jeu_statut:
         # Affiche à chaque fois la grille
         afficher(demineur,taille)
         
         # Demande les coords
-        drapeauSaisie = saisie(grille, taille, True)
-        saisieUser = saisie(demineur,taille, False)
+        saisieUser = saisie(taille)
         
         # Analyse les coords
-        case_statut = recupererCaseStatut(saisieUser,demineur)
+        case_statut = ()
+        if len(saisieUser["case"]) != 0:    
+            case_statut = recupererCaseStatut(saisieUser["case"],demineur)
         # On définit l'etat de victoire ou pas
-        data = regle(case_statut, demineur, case_decouverte, saisieUser,drapeauSaisie,taille)
+        data = regle(case_statut, demineur, case_decouverte, saisieUser["case"],saisieUser["drapeau"],taille)
         jeu_statut = data[0]
         case_decouverte = case_decouverte + data[1]
         
@@ -554,4 +554,4 @@ def main(taille=5):
         
     print("Fin du jeu, merci de votre participation !!!")
 
-main(9)
+main(5)
