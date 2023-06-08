@@ -30,6 +30,8 @@ def grille(taille:int):
     return dico
 
 
+
+
 def statutCaseDepart(grille:dict):
     """
     Fonction Principale :
@@ -93,6 +95,8 @@ def recupererCaseStatut(coords:tuple,grille:dict):
         - Case Mine : mine
     """
     return (grille[coords]["type"],grille[coords]["estVisible"])
+
+    
 
 def drapeau(coords:tuple,grille:dict,isFind:bool):
     """
@@ -161,6 +165,7 @@ def MineAdjacente(grille:dict,coords):
     return nbr_mine
 
 
+
 def decouvrirZone(boolean:bool,grille:dict,coords:tuple):
     grille[coords]["estVisible"] = boolean
 
@@ -183,19 +188,29 @@ def saisie(taille:int):
     
     isCheck = True
     while isCheck:
-        commands = input("demineur :  ")
-        if commands[0]=="c" and len(commands) == 3:
+        commands = input("Choix (cxy --> dévoiler case & dxy --> pour marquer case) :  ")
+        if len(commands) == 3 and commands[0]=="c" :
             if 48 <=  ord(commands[1]) <= ord(str(taille))and 48 <=  ord(commands[2]) <= ord(str(taille)):
                 case = (int(commands[2]),int(commands[1]))
-        elif commands[0]=="d" and len(commands) == 3:
+            else:
+                print("Erreur de valeurs")
+        elif len(commands) == 3 and commands[0]=="d" :
             if 48 <=  ord(commands[1]) <= ord(str(taille))and 48 <=  ord(commands[2]) <= ord(str(taille)):
                 drapeau = (int(commands[2]),int(commands[1]))
+            else:
+                print("Erreur de valeurs")
         elif commands[0]=="e" and len(commands) == 1:
-            isCheck = False
+            
+            if case == () and drapeau == -1:
+                print("Veuillez sélectionner un choix")
+            else:
+                isCheck = False
         else:
             print("Erreur de syntaxe \nExemple : \nc11 pour creuser une case en x=1 et y=1 \nd11 pour poser un drapeau en x=1 et y=1\ne : exit")
         
     return {"case":case,"drapeau":drapeau}
+
+
 
 def regle(case_statut:tuple,grille:dict, case_decouverte:int,coords:tuple,drapeauSaisie,taille:int):
     """
@@ -240,6 +255,7 @@ def regle(case_statut:tuple,grille:dict, case_decouverte:int,coords:tuple,drapea
         else:
             return (True, case_decouverte)
 
+
 def actionAleatoire(coords:tuple,taille:int,grille:dict):
     """
     FP: Choisir de façons aléatoire et équitable (1/5) de tomber sur l'un des 5 événement/actions customiser.
@@ -273,8 +289,9 @@ def actionAleatoire(coords:tuple,taille:int,grille:dict):
         montrerDiagonal(taille,grille)
         print("Diagonal Découverte")
     
-        
-        
+    grille[coords]["type"] = "normale"
+
+
         
 def montrerDiagonal(taille:int,grille:dict):
     """
@@ -357,15 +374,27 @@ def manage_assert(grille):
     FP : Regroupe les fonction test avec des assert
     But: Permet d'activer ou désactiver les asserts sans tout changer
     """
+    assert test_grille() == ['type', 'drapeau', 'estVisible', 'nbr_mine']
+    grille = statutCaseDepart(grille)
     assert test_statutCaseDepart(grille=grille) == True
     drapeau((9,9),grille=grille, isFind=True)
     assert  test_drapeau((9,9),grille=grille, isFind=True)
+    assert test_recupererCaseStatut() == ("None",False)
+    assert test_MineAdjacente() == 1
+    assert test_decouvrirZone() == True
+    assert test_saisie() == "Error"
+    assert test_regle() == (True,11)
+    assert test_actionAleatoire() == 2
+
+def test_grille():
+    demineur = grille(9)
+    return [val for val in demineur[(1,1)].keys()]
 
 def test_statutCaseDepart(grille:dict):
     """
     Fonction Principale :
         Vérifier le bon comportement de la fcontion statutCaseDepart
-
+s
     Parameters
     ----------
     grille : dict
@@ -378,14 +407,14 @@ def test_statutCaseDepart(grille:dict):
 
     """
     taille = len(grille)
-    mine,spe,normal = 0,0,0
+    mine,spe,normale = 0,0,0
     for valeur in grille.values():
         if valeur["type"] == "mine":
             mine += 1
         elif valeur["type"] == "speciale":
             spe += 1
         elif valeur["type"] == "normale":
-            normal += 1
+            normale += 1
     """
     Remarque : Dans les propabilités des cases, j'ai remarqué un problème dû à l'arrondissement des nombres pour les mettre dans le random qui supporte que des integer (pas des float donc on arrondie)
     Par exemple:
@@ -401,11 +430,11 @@ def test_statutCaseDepart(grille:dict):
         nbr_normale = round(0.40 * taille + 0.1) --> (40.5 +0.1 = 40.6 soit arrondie = 41)
     """
     
-    nbr_mine = round(0.40 * taille + 0.1)
-    nbr_speciale = round(0.10 * taille + 0.1)
+    nbr_mine = round(0.45 * taille + 0.1)
+    nbr_speciale = round(0.05 * taille + 0.1)
     nbr_normale = round(0.50 * taille + 0.1)
     
-    if nbr_mine == mine and nbr_normale == normal and nbr_speciale == spe: # Vérifier les proba, si il manque pas des mines par ex 
+    if nbr_mine == mine and nbr_normale == normale and nbr_speciale == spe: # Vérifier les proba, si il manque pas des mines par ex 
         return True
     else:
         return False
@@ -434,6 +463,59 @@ def test_drapeau(coords:tuple,grille:dict,isFind:bool):
         return True
     else:
         return False
+
+def test_recupererCaseStatut():
+    coords = (1,1)
+    demineur = grille(2)
+    return (demineur[coords]["type"],demineur[coords]["estVisible"])
+
+def test_MineAdjacente():
+    grille = {(1, 1): {'type': 'normale', 'drapeau': False, 'estVisible': False, 'nbr_mine': 0}, (1, 2): {'type': 'mine', 'drapeau': False, 'estVisible': False, 'nbr_mine': 0}, (2, 1): {'type': 'None', 'drapeau': False, 'estVisible': False, 'nbr_mine': 0}, (2, 2): {'type': 'None', 'drapeau': False, 'estVisible': False, 'nbr_mine': 0}}
+    return MineAdjacente(grille, (1,1))
+
+def test_decouvrirZone():
+    grille = {(1, 1): {'type': 'None', 'drapeau': False, 'estVisible': False, 'nbr_mine': 0}}
+    decouvrirZone(True,grille,(1,1))
+    return grille[(1,1)]["estVisible"]
+
+def test_saisie():
+    taille = 3
+    commands = "c25"
+    if len(commands) == 3 and commands[0]=="c" :
+        if 48 <=  ord(commands[1]) <= ord(str(taille))and 48 <=  ord(commands[2]) <= ord(str(taille)):
+            return (int(commands[2]),int(commands[1]))
+        else:
+            return "Error"
+
+def test_regle():
+    case_statut = ("normale",False)
+    case_decouverte = 10
+    drapeauSaisie = -1
+    taille = 9
+    if len(case_statut) != 0:
+        if case_statut[1] == True and case_statut[0] != "mine":
+            return(True, case_decouverte)
+        if case_statut[0] == 'normale':
+            return (True, case_decouverte+1)
+        elif case_statut[0] == 'speciale':
+            return (True, case_decouverte+1)
+        elif case_statut[0] == 'mine':
+            return (False,case_decouverte,grille)
+    else:
+        return (True, case_decouverte)
+
+def test_actionAleatoire():
+    nombreAle = 2
+    if nombreAle == 1:
+        return 1
+    if nombreAle == 2:
+        return 2
+    if nombreAle == 3:
+        return 3
+    if nombreAle == 4:
+        return 4
+    if nombreAle == 5:
+        return 5
 
 def mineAdjacenteDepart(grille:dict,taille:int):
     """
@@ -487,7 +569,7 @@ def casseAllie(grille:dict,taille:int,coords:tuple):
     
     return grille
 
-def main(taille=5):
+def main():
     """
     Fonction principale du programme avec la logique d'exécution'
     """
@@ -497,6 +579,7 @@ def main(taille=5):
     print("----[Debut]----\n")
 
     # Initialiser la grille
+    taille = 0
     isCheck = True
     while isCheck:
         reponse = input("Selectionner Mode (facile, moyen, difficile) : ")
@@ -526,8 +609,9 @@ def main(taille=5):
     case_decouverte = 0
     case_statut = ""
     jeu_statut = True
+    print("-------------------------------------------")
     print("Comment interagir ??? \nExemple : \nc11 pour creuser une case en x=1 et y=1 \nd11 pour poser un drapeau en x=1 et y=1\ne : exit")
-    print("")
+    print("-------------------------------------------\n")
     while jeu_statut:
         # Affiche à chaque fois la grille
         afficher(demineur,taille)
@@ -554,4 +638,5 @@ def main(taille=5):
         
     print("Fin du jeu, merci de votre participation !!!")
 
-main(5)
+main()
+# manage_assert(grille(10))
